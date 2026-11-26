@@ -1,0 +1,13 @@
+
+# Ficheiros de compilacao
+build/
+*.exe
+*.o
+*.obj
+
+# Configuracoes do editor
+.vscode/
+
+# Ficheiros temporarios
+*.tmp
+*.log
