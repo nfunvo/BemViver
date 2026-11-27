@@ -1,124 +1,25 @@
+#include "Actividade.h"
 
 #include <iostream>
-#include "Actividade.h"
 
 using namespace std;
 
-//construtuor
-Actividade::Actividade() {
-    id = 0;
-    nome = "";
-    descricao = "";
-    intensidade = "";
-}
+Actividade::Actividade()
+    : id(0), nome(""), descricao(""), intensidade("") {}
 
-// Catalogo de actividades
-vector<Actividade> catalogo;
+Actividade::Actividade(int novoId, const string& novoNome,
+                       const string& novaDescricao,
+                       const string& novaIntensidade)
+    : id(novoId), nome(novoNome), descricao(novaDescricao),
+      intensidade(novaIntensidade) {}
 
-// Carregar actividades pre-estabelecidas
-void Actividade::carregarActividades() {
+int Actividade::getId() const { return id; }
+string Actividade::getNome() const { return nome; }
+string Actividade::getDescricao() const { return descricao; }
+string Actividade::getIntensidade() const { return intensidade; }
 
-    string nomes[] = {
-        "Caminhada",
-        "Corrida",
-        "Ciclismo",
-        "Musculacao",
-        "Natacao",
-        "Yoga",
-        "Danca",
-        "Alongamento"
-    };
-
-    string descricoes[] = {
-        "Caminhar ao ar livre",
-        "Corrida continua",
-        "Passeio de bicicleta",
-        "Exercicios com pesos",
-        "Exercicios na agua",
-        "Exercicios de flexibilidade",
-        "Actividade com movimentos ritmicos",
-        "Exercicios de flexibilidade muscular"
-    };
-
-    string intensidades[] = {
-        "Baixa", "Alta", "Media", "Alta",
-        "Media", "Baixa", "Media", "Baixa"
-    };
-
-    for (int i = 0; i < 8; i++) {
-        Actividade a;
-
-        a.id = i + 1;
-        a.nome = nomes[i];
-        a.descricao = descricoes[i];
-        a.intensidade = intensidades[i];
-
-        catalogo.push_back(a);
-    }
-}
-
-// Listar actividades
-void Actividade::listarActividades() {
-
-    cout << "\n===== ACTIVIDADES DISPONIVEIS =====\n";
-
-    for (int i = 0; i < catalogo.size(); i++) {
-
-        cout << "\nID: " << catalogo[i].id << endl;
-        cout << "Nome: " << catalogo[i].nome << endl;
-        cout << "Intensidade: "
-             << catalogo[i].intensidade << endl;
-    }
-}
-
-// Registar uma nova actividade
-void Actividade::registarActividade() {
-
-    cout << "\n--- NOVA ACTIVIDADE ---\n";
-
-    cout << "ID: ";
-    cin >> id;
-    cin.ignore();
-
-    cout << "Nome: ";
-    getline(cin, nome);
-
-    cout << "Descricao: ";
-    getline(cin, descricao);
-
-    cout << "Intensidade: ";
-    getline(cin, intensidade);
-}
-
-// Mostrar actividade
-void Actividade::mostrarActividade() {
-
-    cout << "\n--- DADOS DA ACTIVIDADE ---\n";
-
-    cout << "ID: " << id << endl;
-    cout << "Nome: " << nome << endl;
-    cout << "Descricao: " << descricao << endl;
-    cout << "Intensidade: " << intensidade << endl;
-}
-
-string Actividade::getNome() {
-    return nome;
-}
-
-bool Actividade::selecionarActividade(int codigo) {
-
-    for (int i = 0; i < catalogo.size(); i++) {
-
-        if (catalogo[i].id == codigo) {
-
-            id = catalogo[i].id;
-            nome = catalogo[i].nome;
-            descricao = catalogo[i].descricao;
-            intensidade = catalogo[i].intensidade;
-
-            return true;
-        }
-    }
-
-    return false;
+void Actividade::mostrar() const {
+    cout << "ID: " << id << " | " << nome
+         << " | Intensidade: " << intensidade << endl;
+    cout << "    " << descricao << endl;
 }

@@ -1,30 +1,29 @@
-
 #ifndef ACTIVIDADE_H
 #define ACTIVIDADE_H
 
 #include <string>
-#include <vector>
 
-using namespace std;
-
+// Representa UMA actividade fisica (ex.: Corrida).
+// A colecao de actividades fica na classe Catalogo.
 class Actividade {
 private:
     int id;
-    string nome;
-    string descricao;
-    string intensidade;
+    std::string nome;
+    std::string descricao;
+    std::string intensidade;
 
 public:
     Actividade();
+    Actividade(int novoId, const std::string& novoNome,
+               const std::string& novaDescricao,
+               const std::string& novaIntensidade);
 
-    void carregarActividades();
-    void listarActividades();
-    void registarActividade();
-    void mostrarActividade();
+    int getId() const;
+    std::string getNome() const;
+    std::string getDescricao() const;
+    std::string getIntensidade() const;
 
-    bool selecionarActividade(int codigo);
-
-    string getNome();
+    void mostrar() const;
 };
 
 #endif

@@ -1,62 +1,58 @@
+#include "Treino.h"
 
 #include <iostream>
-#include <limits>
-#include "Treino.h"
+#include "Entrada.h"
 
 using namespace std;
 
-void Treino::registarTreino(Actividade& catalogo) {
+// Definicao do atributo estatico (obrigatoria fora da classe)
+int Treino::proximoId = 1;
 
-    int codigo;
+Treino::Treino()
+    : id(0), idActividade(0), nomeActividade(""), duracao(0), data("") {}
 
-    cout << "\n===== REGISTO DE TREINO =====\n";
+bool Treino::registar(const Catalogo& catalogo) {
+    cout << "\n===== REGISTO DE TREINO =====\n\n";
 
-    cout << "\nID do treino: ";
-    cin >> id;
+    if (catalogo.total() == 0) {
+        cout << "Nao existem actividades no catalogo.\n";
+        return false;
+    }
 
-    cout << "\n";
-    catalogo.listarActividades();
+    catalogo.listar();
 
-    cout << "\nEscolha o ID da actividade: ";
-    cin >> codigo;
+    int codigo = lerInteiro("\nEscolha o ID da actividade (0 para cancelar): ", 0, 9999);
+    if (codigo == 0) {
+        cout << "Registo cancelado.\n";
+        return false;
+    }
 
-    if (!catalogo.selecionarActividade(codigo)) {
+    const Actividade* escolhida = catalogo.procurarPorId(codigo);
+    if (escolhida == nullptr) {
         cout << "\nActividade nao encontrada!\n";
-        return;
+        return false;
     }
 
-    actividade = catalogo.getNome();
+    // Os dados ficam em variaveis locais ate estarem todos validos.
+    // So no fim e que o objecto e alterado.
+    int novaDuracao = lerInteiro("Duracao do treino (minutos): ", 1, 1440);
+    string novaData = lerData("Data do treino (DD/MM/AAAA): ");
 
-    cout << "Duracao do treino (minutos): ";
-    cin >> duracao;
+    id = proximoId++;
+    idActividade = escolhida->getId();
+    nomeActividade = escolhida->getNome();
+    duracao = novaDuracao;
+    data = novaData;
 
-    while (duracao <= 0) {
-        cout << "Duracao invalida. Introduza novamente: ";
-        cin >> duracao;
-    }
-
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    cout << "Data do treino (DD/MM/AAAA): ";
-    getline(cin, data);
-
-    cout << "\nTreino registado com sucesso!\n";
+    return true;
 }
 
-void Treino::mostrarTreino() {
-
-    cout << "\n===== DADOS DO TREINO =====\n";
-
-    cout << "ID: " << id << endl;
-    cout << "Actividade: " << actividade << endl;
-    cout << "Duracao: " << duracao << " minutos" << endl;
-    cout << "Data: " << data << endl;
+void Treino::mostrar() const {
+    cout << "Treino #" << id << " | " << nomeActividade
+         << " | " << duracao << " min | " << data << endl;
 }
 
-int Treino::getDuracao() {
-    return duracao;
-}
-
-string Treino::getActividade() {
-    return actividade;
-}
+int Treino::getId() const { return id; }
+int Treino::getDuracao() const { return duracao; }
+string Treino::getNomeActividade() const { return nomeActividade; }
+string Treino::getData() const { return data; }

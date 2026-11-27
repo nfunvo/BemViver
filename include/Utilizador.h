@@ -1,21 +1,23 @@
-
 #ifndef UTILIZADOR_H
 #define UTILIZADOR_H
 
 #include <string>
-using namespace std;
 
 class Utilizador {
 private:
-    string nome;
+    std::string nome;
     int idade;
-    float peso;
-    float altura;
+    double peso;      // kg
+    double altura;    // metros
+    bool preenchido;
 
 public:
+    Utilizador();
+
     void inserirDados();
-    void mostrarDados();
-    float calcularIMC();
+    void mostrarDados() const;
+    double calcularIMC() const;
+    bool temDados() const;
 };
 
 #endif
