@@ -19,7 +19,7 @@ int main() {
     return 0;
 }
 */
-
+/*
 #include <iostream>
 #include "Actividade.h"
 
@@ -34,6 +34,33 @@ int main() {
     sistema.carregarActividades();
 
     sistema.listarActividades();
+
+    return 0;
+}
+*/
+
+
+#include <iostream>
+#include "Actividade.h"
+#include "Treino.h"
+
+using namespace std;
+
+int main() {
+
+    Actividade catalogo;
+    Treino treino;
+
+    cout << "=============================\n";
+    cout << "       BEMVIVER\n";
+    cout << " Sistema de Bem-Estar\n";
+    cout << "=============================\n";
+
+    catalogo.carregarActividades();
+
+    treino.registarTreino(catalogo);
+
+    treino.mostrarTreino();
 
     return 0;
 }

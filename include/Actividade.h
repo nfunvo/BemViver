@@ -22,6 +22,8 @@ public:
     void registarActividade();
     void mostrarActividade();
 
+    bool selecionarActividade(int codigo);
+
     string getNome();
 };
 

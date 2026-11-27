@@ -104,3 +104,21 @@ void Actividade::mostrarActividade() {
 string Actividade::getNome() {
     return nome;
 }
+
+bool Actividade::selecionarActividade(int codigo) {
+
+    for (int i = 0; i < catalogo.size(); i++) {
+
+        if (catalogo[i].id == codigo) {
+
+            id = catalogo[i].id;
+            nome = catalogo[i].nome;
+            descricao = catalogo[i].descricao;
+            intensidade = catalogo[i].intensidade;
+
+            return true;
+        }
+    }
+
+    return false;
+}
